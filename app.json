@@ -1,0 +1,18 @@
+{
+
+    "pages": [
+    "pages/index/index",
+    "pages/addItem/addItem",
+    "pages/search/search",
+    "pages/itemDetail/itemDetail",
+    "pages/settings/settings"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "FindIt",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+ } 

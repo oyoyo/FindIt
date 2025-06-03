@@ -1,0 +1,64 @@
+<view class="container">
+  <view class="search-filters">
+    <view class="filter-group">
+      <input class="search-input" placeholder="搜索物品名称" bindinput="onNameInput" value="{{filters.name}}"/>
+      
+      <view class="filter-row">
+        <picker mode="selector" range="{{categories}}" value="{{categoryIndex}}" bindchange="onCategoryChange">
+          <view class="filter-item">
+            <text class="filter-label">类别</text>
+            <view class="filter-value">{{categories[categoryIndex] || '全部'}}</view>
+          </view>
+        </picker>
+        
+        <picker mode="selector" range="{{locations}}" value="{{locationIndex}}" bindchange="onLocationChange">
+          <view class="filter-item">
+            <text class="filter-label">位置</text>
+            <view class="filter-value">{{locations[locationIndex] || '全部'}}</view>
+          </view>
+        </picker>
+      </view>
+      
+      <view class="filter-row">
+        <picker mode="date" value="{{filters.startDate}}" bindchange="onStartDateChange">
+          <view class="filter-item">
+            <text class="filter-label">开始日期</text>
+            <view class="filter-value">{{filters.startDate || '不限'}}</view>
+          </view>
+        </picker>
+        
+        <picker mode="date" value="{{filters.endDate}}" bindchange="onEndDateChange">
+          <view class="filter-item">
+            <text class="filter-label">结束日期</text>
+            <view class="filter-value">{{filters.endDate || '不限'}}</view>
+          </view>
+        </picker>
+      </view>
+    </view>
+    
+    <button class="search-btn" bindtap="search">搜索</button>
+  </view>
+
+  <!-- 搜索结果列表 -->
+  <scroll-view scroll-y="true" class="items-list">
+    <view class="list-header">
+      <text class="header-image">图片</text>
+      <text class="header-name">名称</text>
+      <text class="header-location">位置</text>
+      <text class="header-time">日期</text>
+    </view>
+    
+    <view class="list-items">
+      <view class="list-item" wx:for="{{searchResults}}" wx:key="id">
+        <view class="item-image-container" bindtap="previewImage" data-url="{{item.imageUrl}}">
+          <image class="item-image" src="{{item.imageUrl}}" mode="aspectFill"></image>
+        </view>
+        <view class="item-content" bindtap="showItemDetail" data-id="{{item.id}}">
+          <text class="item-name">{{item.name}}</text>
+          <text class="item-location">{{item.location}}</text>
+          <text class="item-time">{{item.formattedDate}}</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view> 

@@ -1,0 +1,44 @@
+<view class="container">
+  <view class="image-section">
+    <image src="{{item.imageUrl}}" mode="aspectFit" bindtap="previewImage"></image>
+  </view>
+  
+  <view class="info-section">
+    <view class="info-group">
+      <view class="info-item">
+        <text class="label">物品名称</text>
+        <text class="value">{{item.name}}</text>
+      </view>
+      
+      <view class="info-item">
+        <text class="label">类别</text>
+        <text class="value">{{item.category}}</text>
+      </view>
+      
+      <view class="info-item">
+        <text class="label">存放位置</text>
+        <text class="value">{{item.location}}</text>
+      </view>
+      
+      <view class="info-item">
+        <text class="label">保存时间</text>
+        <text class="value">{{item.saveTime}}</text>
+      </view>
+      
+      <view class="info-item">
+        <text class="label">提醒天数</text>
+        <text class="value">{{item.reminderDays}}</text>
+      </view>
+
+       <view class="info-item remarks">
+        <text class="label">备注</text>
+        <text class="value">{{item.remarks || '无'}}</text>
+      </view>
+    </view>
+  </view>
+  
+  <view class="button-group">
+    <button class="edit-btn" bindtap="editItem">编辑</button>
+    <button class="delete-btn" bindtap="deleteItem">删除</button>
+  </view>
+</view> 

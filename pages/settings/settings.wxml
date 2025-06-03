@@ -1,0 +1,17 @@
+<view class="container">
+  <view class="title">类别管理</view>
+  
+  <view class="add-category">
+    <input class="category-input" placeholder="输入新类别" value="{{newCategory}}" bindinput="onInputCategory" />
+    <button class="add-btn" bindtap="addCategory">添加</button>
+  </view>
+  
+  <view class="categories-list">
+    <view class="category-item" wx:for="{{categories}}" wx:key="*this">
+      <text class="category-name">{{item}}</text>
+      <view class="delete-btn" bindtap="deleteCategory" data-index="{{index}}">
+        <text class="delete-icon">×</text>
+      </view>
+    </view>
+  </view>
+</view> 

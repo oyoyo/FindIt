@@ -1,6 +1,6 @@
 Page({
   data: {
-    categories: ['全部', '电子产品', '书籍', '衣物', '文具', '工具', '其他'],
+    categories: ['全部'], // 将从已有数据中动态获取
     categoryIndex: 0,
     locations: ['全部'], // 将从已有数据中动态获取
     locationIndex: 0,
@@ -15,8 +15,18 @@ Page({
   },
 
   onLoad() {
+    this.loadCategories();
     this.loadLocations();
     this.search(); // 初始加载所有数据
+  },
+
+  loadCategories() {
+    // 从存储中获取类别列表
+    const categories = wx.getStorageSync('categories') || ['电子产品', '书籍/音像', '衣物/饰品', '食品/医药', '文体/工具', '其他'];
+    // 添加"全部"选项
+    this.setData({
+      categories: ['全部', ...categories]
+    });
   },
 
   loadLocations() {

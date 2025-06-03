@@ -52,6 +52,19 @@
   align-items: center;
 }
 
+/* 添加到期提醒背景色 */
+.list-item.days-1 {
+  background-color: rgba(255, 0, 0, 0.1); /* 红色背景 - 剩余1天 */
+}
+
+.list-item.days-2-3 {
+  background-color: rgba(255, 255, 0, 0.1); /* 黄色背景 - 剩余2-3天 */
+}
+
+.list-item.days-4-5 {
+  background-color: rgba(0, 0, 255, 0.1); /* 蓝色背景 - 剩余4-5天 */
+}
+
 .item-image-container {
   width: 120rpx;
   height: 80rpx;

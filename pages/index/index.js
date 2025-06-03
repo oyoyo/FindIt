@@ -1,6 +1,7 @@
 Page({
   data: {
-    items: []
+    items: [],
+    hasShownReminders: false
   },
 
   onLoad() {
@@ -9,16 +10,25 @@ Page({
 
   onShow() {
     this.loadItems(); // 每次显示页面时重新加载数据
-    this.checkReminders(); // 检查提醒
+    if (!this.data.hasShownReminders) {
+      this.checkReminders(); // 只在首次进入时检查提醒
+      this.setData({ hasShownReminders: true });
+    }
   },
 
   loadItems() {
     const items = wx.getStorageSync('items') || [];
-    // 格式化日期
-    const formattedItems = items.map(item => ({
-      ...item,
-      formattedDate: this.formatDate(item.timestamp)
-    }));
+    const now = Date.now();
+    
+    // 格式化日期并计算剩余天数
+    const formattedItems = items.map(item => {
+      const daysLeft = item.reminderDays ? Math.ceil((item.reminderEndDate - now) / (24 * 60 * 60 * 1000)) : null;
+      return {
+        ...item,
+        formattedDate: this.formatDate(item.timestamp),
+        daysLeft: daysLeft
+      };
+    });
     
     this.setData({
       items: formattedItems.sort((a, b) => b.timestamp - a.timestamp) // 按时间倒序排列
@@ -37,8 +47,8 @@ Page({
         if (daysLeft <= 1 && daysLeft > 0) {
           hasReminders = true;
           wx.showModal({
-            title: '物品提醒',
-            content: `物品"${item.name}"的提醒时间即将到期，存放位置：${item.location}`,
+            title: '提醒',
+            content: `"${item.name}"即将到期（剩${daysLeft}天），\n存放位置：${item.location}`,
             showCancel: false
           });
         }

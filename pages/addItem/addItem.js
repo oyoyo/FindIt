@@ -16,7 +16,7 @@ Page({
 
   onLoad(options) {
     // Load categories from storage
-    const categories = wx.getStorageSync('categories') || ['电子产品', '书籍', '衣物', '文具', '工具', '其他'];
+    const categories = wx.getStorageSync('categories') || ['电子产品', '书籍/音像', '衣物/饰品', '食品/医药', '文体/工具', '其他'];
     this.setData({ categories });
 
     if (options.imagePath) {

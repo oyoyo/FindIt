@@ -17,7 +17,7 @@
     </view>
     
     <view class="list-items">
-      <view class="list-item" wx:for="{{items}}" wx:key="id">
+      <view class="list-item {{item.daysLeft === 1 ? 'days-1' : ''}} {{item.daysLeft >= 2 && item.daysLeft <= 3 ? 'days-2-3' : ''}} {{item.daysLeft >= 4 && item.daysLeft <= 5 ? 'days-4-5' : ''}}" wx:for="{{items}}" wx:key="id">
         <view class="item-image-container" bindtap="previewImage" data-url="{{item.imageUrl}}">
           <image class="item-image" src="{{item.imageUrl}}" mode="aspectFill"></image>
         </view>
@@ -26,7 +26,6 @@
           <text class="item-location">{{item.location}}</text>
           <text class="item-reminderDays">{{item.reminderDays}}</text>
           <text class="item-time">{{item.formattedDate}}</text>
-
         </view>
       </view>
     </view>

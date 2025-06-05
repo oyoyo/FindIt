@@ -17,7 +17,6 @@ Page({
   onLoad() {
     this.loadCategories();
     this.loadLocations();
-    this.search(); // 初始加载所有数据
   },
 
   loadCategories() {
@@ -85,8 +84,28 @@ Page({
   },
 
   search() {
-    const items = wx.getStorageSync('items') || [];
     const filters = this.data.filters;
+    
+    // 检查是否设置了任何搜索条件
+    const hasFilters = filters.name || 
+                      filters.category || 
+                      filters.location || 
+                      filters.startDate || 
+                      filters.endDate;
+    
+    if (!hasFilters) {
+      wx.showToast({
+        title: '请设置搜索条件',
+        icon: 'none',
+        duration: 2000
+      });
+      this.setData({
+        searchResults: []
+      });
+      return;
+    }
+
+    const items = wx.getStorageSync('items') || [];
     
     const results = items.filter(item => {
       // 名称匹配

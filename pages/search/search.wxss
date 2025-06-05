@@ -124,4 +124,19 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   padding: 0 10rpx;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 40rpx;
+  text-align: center;
+  color: #999;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  line-height: 1.5;
 } 

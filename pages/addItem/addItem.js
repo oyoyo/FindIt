@@ -168,7 +168,7 @@ Page({
     // 如果设置了提醒天数，询问是否添加到日历
     if (reminderDays > 0) {
       wx.showModal({
-        title: '添加提醒',
+        title: '添加日历提醒',
         content: '是否将到期提醒添加到系统日历？',
         success: (res) => {
           if (res.confirm) {
@@ -181,7 +181,7 @@ Page({
             
             const calendarEvent = {
               title: `FindIt提醒：${itemData.name}`,
-              description: `物品位置：${itemData.location}`,
+              description: `物品位置：${itemData.location}\n备注：${itemData.remarks || '无'}`,
               startTime: Math.floor(startDate.getTime() / 1000),
               endTime: Math.floor(endDate.getTime() / 1000),
               alarm: true
@@ -192,48 +192,88 @@ Page({
             wx.addPhoneCalendar({
               ...calendarEvent,
               success: () => {
-                console.log('日历事件添加成功');
+                console.log('已跳转到系统日历');
+                // 先显示保存成功的提示
                 wx.showToast({
-                  title: '已添加到日历',
-                  icon: 'success'
+                  title: this.data.isEdit ? '更新成功' : '保存成功',
+                  icon: 'success',
+                  duration: 1500
                 });
+                // 延迟返回，确保用户看到提示
                 setTimeout(() => {
-                  wx.navigateBack({
-                    delta: this.data.isEdit ? 2 : 1
-                  });
+                  if (this.data.isEdit) {
+                    // 如果是编辑模式，返回到详情页
+                    wx.navigateBack({
+                      delta: 2
+                    });
+                  } else {
+                    // 如果是新增模式，返回到首页
+                    wx.navigateBack({
+                      delta: 1
+                    });
+                  }
                 }, 1500);
               },
               fail: (err) => {
-                console.error('添加日历失败，错误详情:', err);
+                console.error('跳转到系统日历失败:', err);
                 wx.showModal({
-                  title: '添加日历失败',
-                  content: err.errMsg || '未知错误',
+                  title: '跳转失败',
+                  content: '无法打开系统日历，请确保已授予日历权限',
                   showCancel: false,
                   success: () => {
-                    wx.navigateBack({
-                      delta: this.data.isEdit ? 2 : 1
-                    });
+                    if (this.data.isEdit) {
+                      wx.navigateBack({
+                        delta: 2
+                      });
+                    } else {
+                      wx.navigateBack({
+                        delta: 1
+                      });
+                    }
                   }
                 });
               }
             });
           } else {
-            wx.navigateBack({
-              delta: this.data.isEdit ? 2 : 1
+            // 用户选择不添加到日历，显示保存成功后返回
+            wx.showToast({
+              title: this.data.isEdit ? '更新成功' : '保存成功',
+              icon: 'success',
+              duration: 1500,
+              success: () => {
+                setTimeout(() => {
+                  if (this.data.isEdit) {
+                    wx.navigateBack({
+                      delta: 2
+                    });
+                  } else {
+                    wx.navigateBack({
+                      delta: 1
+                    });
+                  }
+                }, 1500);
+              }
             });
           }
         }
       });
     } else {
+      // 没有设置提醒天数，显示保存成功后返回
       wx.showToast({
         title: this.data.isEdit ? '更新成功' : '保存成功',
         icon: 'success',
         duration: 1500,
         success: () => {
           setTimeout(() => {
-            wx.navigateBack({
-              delta: this.data.isEdit ? 2 : 1
-            });
+            if (this.data.isEdit) {
+              wx.navigateBack({
+                delta: 2
+              });
+            } else {
+              wx.navigateBack({
+                delta: 1
+              });
+            }
           }, 1500);
         }
       });

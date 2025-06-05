@@ -1,5 +1,4 @@
 {
-
     "pages": [
     "pages/index/index",
     "pages/addItem/addItem",
@@ -14,5 +13,10 @@
     "navigationBarTextStyle": "black"
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
- } 
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.addPhoneCalendar": {
+      "desc": "用于添加物品到期提醒到系统日历"
+    }
+  }
+} 

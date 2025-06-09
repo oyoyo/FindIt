@@ -22,7 +22,7 @@
       
       <view class="info-item">
         <text class="label">保存时间</text>
-        <text class="value">{{item.saveTime}}</text>
+        <text class="value">{{item.formattedSaveTime}}</text>
       </view>
       
       <view class="info-item">
@@ -41,4 +41,4 @@
     <button class="edit-btn" bindtap="editItem">编辑</button>
     <button class="delete-btn" bindtap="deleteItem">删除</button>
   </view>
-</view> 
+</view>

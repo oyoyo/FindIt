@@ -1,7 +1,8 @@
 Page({
   data: {
     items: [],
-    hasShownReminders: false
+    hasShownReminders: false,
+    sortAsc: true // 添加排序状态变量
   },
 
   onLoad() {
@@ -30,8 +31,22 @@ Page({
       };
     });
     
+    // 根据排序状态进行排序
+    const sortedItems = formattedItems.sort((a, b) => {
+      return this.data.sortAsc ? a.timestamp - b.timestamp : b.timestamp - a.timestamp;
+    });
+    
     this.setData({
-      items: formattedItems.sort((a, b) => b.timestamp - a.timestamp) // 按时间倒序排列
+      items: sortedItems
+    });
+  },
+
+  // 添加切换排序方法
+  toggleSort() {
+    this.setData({
+      sortAsc: !this.data.sortAsc
+    }, () => {
+      this.loadItems();
     });
   },
 
@@ -112,4 +127,4 @@ Page({
       url: `/pages/itemDetail/itemDetail?id=${id}`
     });
   }
-}) 
+})

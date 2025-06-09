@@ -14,6 +14,16 @@
   text-align: center;
     width: 100%;
 }
+.empty-state {
+  font-size: 40rpx;
+  font-weight1: bold;
+  padding-top: 550rpx;
+  color: #333;
+  text-align: center;
+  align-self: center;
+  width: 100%;
+  min-height: 200rpx;
+}
 
 /* 列表样式 */
 .items-list {
@@ -25,7 +35,7 @@
 
 .list-header {
   display: grid;
-  grid-template-columns: 120rpx 10fr 10fr 5fr 200rpx;
+  grid-template-columns: 120rpx 10fr 10fr 5fr 180rpx;
   padding: 20rpx;
   background-color: #fff;
   border-bottom: 1rpx solid #eee;
@@ -39,7 +49,7 @@
   color: #666;
   font-weight: bold;
   text-align: left;
-  padding: 0 0 0 20rpx;
+  padding: 0 0 0 15rpx;
 }
 
 .list-items {
@@ -48,8 +58,8 @@
 
 .list-item {
   display: grid;
-  grid-template-columns: 120rpx 10fr 10fr 5fr 200rpx;
-  padding: 20rpx;
+  grid-template-columns: 120rpx 10fr 10fr 5fr 180rpx;
+  padding: 15rpx;
   border-bottom: 1rpx solid #eee;
   align-items: center;
 }
@@ -141,6 +151,7 @@
 .btn-icon-small {
   width: 36rpx;
   height: 36rpx;
+  padding-left: 15rpx;
 }
 
 .btn text {

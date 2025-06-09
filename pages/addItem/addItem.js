@@ -144,7 +144,7 @@ Page({
       location: formData.location,
       remarks: formData.remarks,
       imageUrl: this.data.tempImagePath,
-      saveTime: new Date().toLocaleString(),
+      saveTime: new Date().toLocaleString('zh-cn',{datestyle:'full',timeStyle:'full'}),
       timestamp: this.data.isEdit ? now : now,
       reminderDays: reminderDays,
       reminderStartDate: now,
@@ -218,7 +218,7 @@ Page({
                 console.error('跳转到系统日历失败:', err);
                 wx.showModal({
                   title: '跳转失败',
-                  content: '无法打开系统日历，请确保已授予日历权限',
+                  content: '无法打开系统日历，请确保已授予日历权限，并且微信不是分身。',
                   showCancel: false,
                   success: () => {
                     if (this.data.isEdit) {

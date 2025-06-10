@@ -95,7 +95,7 @@
   display: contents;
 }
 
-.item-location, .item-name, .item-time, .item-reminderDays {
+.item-location, .item-name, .item-time {
   font-size: 28rpx;
   color: #333;
   text-align: left;
@@ -105,13 +105,31 @@
   padding: 0 10rpx;
 }
 
+ .item-reminderDays {
+  font-size: 28rpx;
+  color: #333;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 10rpx;
+}
+
+.red {
+  color: rgb(235, 67, 67);
+}
+.green {
+  color: rgb(6, 163, 1);
+}
+
+
 /* 底部按钮样式 */
 .button-group {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 20rpx 60rpx;
+  padding: 40rpx 60rpx;
   display: flex;
   justify-content: center;
   gap: 60rpx;
@@ -121,7 +139,7 @@
 
 .btn {
   width: 120rpx;
-  height: 120rpx;
+  height: 100rpx;
   padding: 0;
   display: flex;
   align-items: center;

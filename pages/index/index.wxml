@@ -25,7 +25,10 @@
           <view class="item-content" bindtap="showItemDetail" data-id="{{item.id}}">
             <text class="item-name">{{item.name}}</text>
             <text class="item-location">{{item.location}}</text>
-            <text class="item-reminderDays">{{item.reminderDays > 0 ? item.reminderDays + '天' : '无'}}</text>
+            <text class="item-reminderDays {{item.daysLeft>0 ? 'green' : 'red'}}">
+            {{item.daysLeft ? item.daysLeft: ''}}
+            
+            </text>
             <text class="item-time">{{item.formattedDate}}</text>
           </view>
         </view>

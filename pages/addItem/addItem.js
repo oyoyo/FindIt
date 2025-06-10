@@ -144,13 +144,14 @@ Page({
       location: formData.location,
       remarks: formData.remarks,
       imageUrl: this.data.tempImagePath,
-      saveTime: new Date().toLocaleString('zh-cn',{datestyle:'full',timeStyle:'full'}),
+      saveTime: new Date().toLocaleString(),
       timestamp: this.data.isEdit ? now : now,
       reminderDays: reminderDays,
       reminderStartDate: now,
       reminderEndDate: reminderDays ? now + (reminderDays * 24 * 60 * 60 * 1000) : 0
     };
-
+console.log('itemData.saveTime:', itemData.saveTime);
+    // 如果是编辑模式，删除旧的提醒
     if (this.data.isEdit) {
       // Update existing item
       const index = items.findIndex(item => item.id === this.data.itemId);

@@ -10,7 +10,8 @@ Page({
       category: '',
       location: '',
       remarks: '',
-      reminderDays: ''
+      reminderDays: '',
+      voiceNote: ''
     }
   },
 
@@ -33,6 +34,7 @@ Page({
         'formData.name': options.name,
         'formData.category': options.category,
         'formData.location': options.location,
+        'formData.voiceNote': decodeURIComponent(options.voiceNote),
         'formData.remarks': decodeURIComponent(options.remarks),
         'formData.reminderDays': options.reminderDays
       });
@@ -126,6 +128,28 @@ Page({
       return;
     }
 
+   
+// 假设录音文件的临时路径存储在 this.data.recordTempPath 中
+const recordTempPath = this.data.formData.voiceNote;
+if (recordTempPath) {
+    try {
+        // 保存录音文件到永久路径
+        const { savedFilePath } = await wx.saveFile({
+            tempFilePath: recordTempPath
+        });
+        formData.recordPath = savedFilePath;
+        formData.voiceNote = savedFilePath;
+        console.log('录音文件保存成功，永久路径:', savedFilePath);
+    } catch (error) {
+        console.error('录音文件保存失败:', error);
+        wx.showToast({
+            title: '录音文件保存失败',
+            icon: 'none'
+        });
+    }
+}
+
+ 
     // 处理提醒天数
     let reminderDays = parseInt(formData.reminderDays);
     if (isNaN(reminderDays) || reminderDays <= 0) {
@@ -144,6 +168,7 @@ Page({
       location: formData.location,
       remarks: formData.remarks,
       imageUrl: this.data.tempImagePath,
+      voiceNote: formData.voiceNote? formData.voiceNote : null,      
       saveTime: new Date().toLocaleString(),
       timestamp: this.data.isEdit ? now : now,
       reminderDays: reminderDays,
@@ -151,6 +176,8 @@ Page({
       reminderEndDate: reminderDays ? now + (reminderDays * 24 * 60 * 60 * 1000) : 0
     };
 console.log('itemData.saveTime:', itemData.saveTime);
+console.log('itemData.voiceNote:', itemData.voiceNote);
+
     // 如果是编辑模式，删除旧的提醒
     if (this.data.isEdit) {
       // Update existing item
@@ -283,5 +310,39 @@ console.log('itemData.saveTime:', itemData.saveTime);
 
   cancel() {
     wx.navigateBack();
-  }
-}) 
+  },
+
+
+  /**
+   * @description 开始录音
+   */
+  startRecord() {
+    this.recorderManager = wx.getRecorderManager();
+    this.recorderManager.start({
+      format: 'mp3'
+    });
+    this.recorderManager.onStart(() => {
+      console.log('开始录音');
+    });
+    this.recorderManager.onError((res) => {
+      console.error('录音出错:', res);
+    });
+  },
+  /**
+   * @description 停止录音
+   */
+  stopRecord() {
+    if (this.recorderManager) {
+      this.recorderManager.stop();
+      this.recorderManager.onStop((res) => {
+        console.log('停止录音', res.tempFilePath);
+        // 可以将录音文件路径保存到表单数据中
+        this.setData({
+          'formData.voiceNote': res.tempFilePath
+        });
+      });
+    }
+  },
+  // ... existing code ...
+
+})

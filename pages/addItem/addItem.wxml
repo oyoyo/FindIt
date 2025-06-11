@@ -25,12 +25,21 @@
       <view class="form-item">
         <text class="label">提醒天数</text>
         <input name="reminderDays" type="number" placeholder="设置提醒天数（可选）" value="{{formData.reminderDays}}" />
-        <text class="hint">从今天开始倒计时，0或留空表示不提醒</text>
+        <text class="hint">从今天算起，0或空表示不提醒</text>
       </view>
+
       
       <view class="form-item">
         <text class="label">备注</text>
-        <textarea name="remarks" placeholder="添加备注信息" value="{{formData.remarks}}"></textarea>
+        <view class="remarks-container">
+          <textarea name="remarks" placeholder="添加备注信息" value="{{formData.remarks}}"></textarea>
+          <button class="record-btn" bindtouchstart="startRecord" bindtouchend="stopRecord" bindtouchcancel="stopRecord">按住录音</button>
+        </view>
+
+      </view>
+      <!-- 添加音频播放器 -->
+      <view wx:if="{{formData.voiceNote!= 'undefined'}}" class="audio-player">
+        <audio name="{{formData.name}}" author="" src="{{formData.voiceNote}}"  controls></audio>
       </view>
     </view>
     
@@ -39,4 +48,4 @@
       <button class="save-btn" form-type="submit">保存</button>
     </view>
   </form>
-</view> 
+</view>

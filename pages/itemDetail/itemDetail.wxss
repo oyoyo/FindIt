@@ -58,12 +58,7 @@
   word-break: break-all;
 }
 
-.button-group {
-  margin-top: 40rpx;
-  padding: 0 30rpx;
-  display: flex;
-  gap: 20rpx;
-}
+
 
 .edit-btn, .delete-btn {
   flex: 1;

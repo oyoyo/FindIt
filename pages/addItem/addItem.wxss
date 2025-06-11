@@ -27,6 +27,9 @@
 
 .form-item {
   margin-bottom: 30rpx;
+  display: flex;
+  word-break: keep-all;
+  
 }
 
 .form-item:last-child {
@@ -38,6 +41,7 @@
   font-size: 28rpx;
   color: #666;
   margin-bottom: 10rpx;
+  width: 120rpx;
 }
 
 .hint {
@@ -95,4 +99,49 @@ textarea {
 .save-btn {
   background-color: #4CAF50;
   color: #fff;
-} 
+}
+
+.remarks-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 10rpx;
+}
+
+.remarks-container textarea {
+  flex: 3;
+  border: 1rpx solid #ccc;
+  border-radius: 8rpx;
+  padding: 15rpx;
+}
+
+.record-btn {
+  flex: 1;
+  height: auto;
+  background-color: #2196F3;
+  color: #fff;
+  border-radius: 8rpx; /* 方形按钮 */
+  font-size: 28rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15rpx;
+  white-space: nowrap;
+}
+
+.audio-player {
+  margin-top: 20rpx;
+  width: 100%;
+}
+
+.recording-tip {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 20rpx 40rpx;
+  border-radius: 10rpx;
+  z-index: 999;
+}

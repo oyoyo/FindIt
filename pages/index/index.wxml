@@ -1,6 +1,7 @@
 <view class="container">
   <view class="title-container">
-    <text class="title">我的记录 ({{items.length}})</text>
+    <text class="title">我的东西 ({{items.length}})</text>
+    <text class="note red " style="color: rgb(221, 103, 82);">注意：不要删除或移动相册里的照片，否则列表图片会消失</text>   
     <view class="settings-btn" bindtap="goToSettings">
       <image class="settings-icon" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMzIgMzIiIGlkPSJHbHlwaCIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0yNy41MjYsMTguMDM2TDI3LDE3LjczMmMtMC42MjYtMC4zNjEtMS0xLjAwOS0xLTEuNzMyczAuMzc0LTEuMzcxLDEtMS43MzJsMC41MjYtMC4zMDQgIGMxLjQzNi0wLjgzLDEuOTI3LTIuNjYyLDEuMDk4LTQuMDk4bC0xLTEuNzMyYy0wLjgyNy0xLjQzMy0yLjY2Ni0xLjkyNS00LjA5OC0xLjA5OEwyMyw3LjMzOWMtMC42MjYsMC4zNjItMS4zNzUsMC4zNjItMiwwICBjLTAuNjI2LTAuMzYyLTEtMS4wMDktMS0xLjczMlY1YzAtMS42NTQtMS4zNDYtMy0zLTNoLTJjLTEuNjU0LDAtMywxLjM0Ni0zLDN2MC42MDhjMCwwLjcyMy0wLjM3NCwxLjM3LTEsMS43MzIgIGMtMC42MjYsMC4zNjEtMS4zNzQsMC4zNjItMiwwTDguNDc0LDcuMDM2QzcuMDQyLDYuMjA5LDUuMjAzLDYuNzAxLDQuMzc1LDguMTM0bC0xLDEuNzMyYy0wLjgyOSwxLjQzNi0wLjMzOCwzLjI2OSwxLjA5OCw0LjA5OCAgTDUsMTQuMjY4QzUuNjI2LDE0LjYyOSw2LDE1LjI3Nyw2LDE2cy0wLjM3NCwxLjM3MS0xLDEuNzMybC0wLjUyNiwwLjMwNGMtMS40MzYsMC44MjktMS45MjcsMi42NjItMS4wOTgsNC4wOThsMSwxLjczMiAgYzAuODI4LDEuNDMzLDIuNjY3LDEuOTI1LDQuMDk4LDEuMDk4TDksMjQuNjYxYzAuNjI2LTAuMzYzLDEuMzc0LTAuMzYxLDIsMGMwLjYyNiwwLjM2MiwxLDEuMDA5LDEsMS43MzJWMjdjMCwxLjY1NCwxLjM0NiwzLDMsM2gyICBjMS42NTQsMCwzLTEuMzQ2LDMtM3YtMC42MDhjMC0wLjcyMywwLjM3NC0xLjM3LDEtMS43MzJjMC42MjUtMC4zNjEsMS4zNzQtMC4zNjIsMiwwbDAuNTI2LDAuMzA0ICBjMS40MzIsMC44MjYsMy4yNzEsMC4zMzQsNC4wOTgtMS4wOThsMS0xLjczMkMyOS40NTMsMjAuNjk4LDI4Ljk2MiwxOC44NjUsMjcuNTI2LDE4LjAzNnogTTE2LDIxYy0yLjc1NywwLTUtMi4yNDMtNS01czIuMjQzLTUsNS01ICBzNSwyLjI0Myw1LDVTMTguNzU3LDIxLDE2LDIxeiIgaWQ9IlhNTElEXzI3M18iLz48L3N2Zz4="></image>
     </view>
@@ -42,7 +43,7 @@
   </block>
   <!-- 底部按钮 -->
   <view class="button-group">
-    <button class="btn camera-btn" bindtap="takePhoto">
+    <button class="btn camera-btn" bindtap="takePhoto" bindlongpress="goToAddItemWithoutPhoto">
       <image class="btn-icon" src="data:image/svg+xml;base64,PHN2ZyBiYXNlUHJvZmlsZT0idGlueSIgdmVyc2lvbj0iMS4yIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE5IDZoLTEuNTg2bC0xLTFjLS41NzktLjU3OS0xLjU5NS0xLTIuNDE0LTFoLTRjLS44MTkgMC0xLjgzNS40MjEtMi40MTQgMWwtMSAxSDVDMy4zNDYgNiAyIDcuMzQ2IDIgOXY4YzAgMS42NTQgMS4zNDYgMyAzIDNoMTRjMS42NTQgMCAzLTEuMzQ2IDMtM1Y5YzAtMS42NTQtMS4zNDYtMy0zLTN6bS03IDEwYTMuNSAzLjUgMCAxIDEgLjAwMS03LjAwMUEzLjUgMy41IDAgMCAxIDEyIDE2em02LTQuNzAxYTEuMyAxLjMgMCAxIDEgMC0yLjYgMS4zIDEuMyAwIDAgMSAwIDIuNnoiIGZpbGw9IiNmZmZmZmYiIGNsYXNzPSJmaWxsLTAwMDAwMCI+PC9wYXRoPjwvc3ZnPg=="></image>
     </button>
     <button class="btn search-btn" bindtap="goToSearch">

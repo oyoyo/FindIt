@@ -2,7 +2,7 @@ Page({
   data: {
     items: [],
     hasShownReminders: false,
-    sortAsc: true // 添加排序状态变量
+    sortAsc: false // 添加排序状态变量
   },
 
   onLoad() {
@@ -86,6 +86,13 @@ Page({
     return `${year}-${month}-${day}`;
   },
 
+  goToAddItemWithoutPhoto() {
+    // 直接跳转到添加物品页面，不传递图片路径
+    wx.navigateTo({
+      url: `/pages/addItem/addItem`
+    });
+  },
+  
   takePhoto() {
     wx.chooseMedia({
       count: 1,

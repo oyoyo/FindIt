@@ -12,7 +12,7 @@
   padding: 15rpx;
   color: #333;
   text-align: center;
-    width1: 100%;
+  white-space: nowrap;
 }
 .empty-state {
   font-size: 40rpx;
@@ -200,3 +200,14 @@
   width: 48rpx;
   height: 48rpx;
 } 
+
+.box {
+  border: 1rpx solid #666;
+} 
+
+.note {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 8rpx;
+}

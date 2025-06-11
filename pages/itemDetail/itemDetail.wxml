@@ -22,7 +22,7 @@
       
       <view class="info-item">
         <text class="label">保存时间</text>
-        <text class="value">{{item.formattedSaveTime}}</text>
+        <text class="value">{{item.saveTime}}</text>
       </view>
       
       <view class="info-item">
@@ -33,7 +33,16 @@
        <view class="info-item remarks">
         <text class="label">备注</text>
         <text class="value">{{item.remarks || '无'}}</text>
+      </view>      
+      <view class="info-item" style="display:none">
+        <text class="label">录音文件</text>
+        <button wx:if="{{item.voiceNote}}" bindtap="playRecord">播放录音</button>
+        <text wx:else>无录音文件</text>
       </view>
+      <view wx:if="{{item.voiceNote}}" class="audio-player">
+          <audio name="{{item.name}}" author="" src="{{item.voiceNote}}" controls></audio>
+      </view>
+
     </view>
   </view>
   

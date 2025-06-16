@@ -7,38 +7,48 @@
     <view class="form-group">
       <view class="form-item">
         <text class="label">物品名称</text>
-        <input name="name" placeholder="请输入物品名称" value="{{formData.name}}"/>
+        <view class="input-group">
+          <input name="name" placeholder="请输入物品名称" value="{{formData.name}}"/>
+        </view>
       </view>
       
       <view class="form-item">
         <text class="label">类别</text>
-        <picker name="category" mode="selector" range="{{categories}}" value="{{categoryIndex}}" bindchange="onCategoryChange">
-          <view class="picker">{{categories[categoryIndex] || '请选择类别'}}</view>
-        </picker>
+        <view class="input-group">
+          <picker name="category" mode="selector" range="{{categories}}" value="{{categoryIndex}}" bindchange="onCategoryChange">
+            <view class="picker">{{categories[categoryIndex] || '请选择类别'}}</view>
+          </picker>
+        </view>
       </view>
       
       <view class="form-item">
         <text class="label">存放位置</text>
-        <input name="location" placeholder="请输入存放位置" value="{{formData.location}}"/>
+        <view class="input-group">
+          <input name="location" placeholder="请输入存放位置" value="{{formData.location}}"/>
+        </view>
       </view>
 
       <view class="form-item">
         <text class="label">提醒天数</text>
-        <input name="reminderDays" type="number" placeholder="设置提醒天数（可选）" value="{{formData.reminderDays}}" />
-        <text class="hint">从今天算起，0或空表示不提醒</text>
+        <view class="input-group">
+          <input name="reminderDays" type="number" placeholder="设置提醒天数（可选）" value="{{formData.reminderDays}}" />
+          <text class="hint">从今天算起，0或空表示不提醒</text>
+        </view>
       </view>
 
       
       <view class="form-item">
         <text class="label">备注</text>
-        <view class="remarks-container">
-          <textarea name="remarks" placeholder="添加备注信息" value="{{formData.remarks}}"></textarea>
-          <button class="record-btn" bindtouchstart="startRecord" bindtouchend="stopRecord" bindtouchcancel="stopRecord">
+        <view class="input-group">
+          <view class="remarks-container">
+            <textarea name="remarks" placeholder="添加备注信息" value="{{formData.remarks}}"></textarea>
+            <button class="record-btn" bindtouchstart="startRecord" bindtouchend="stopRecord" bindtouchcancel="stopRecord">
             
 <image style="width:96rpx;height:96rpx;" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMzIgMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE2IDIwYTUgNSAwIDAgMCA1LTVWOWE1IDUgMCAwIDAtMTAgMHY2YTUgNSAwIDAgMCA1IDVaIiBmaWxsPSIjZmZmZmZmIiBjbGFzcz0iZmlsbC0wMDAwMDAiPjwvcGF0aD48cGF0aCBkPSJNMjQgMTVhMSAxIDAgMCAwLTIgMCA2IDYgMCAwIDEtMTIgMCAxIDEgMCAwIDAtMiAwIDggOCAwIDAgMCA3IDcuOTNWMjZoLTMuNWExIDEgMCAwIDAgMCAyaDlhMSAxIDAgMCAwIDAtMkgxN3YtMy4wN0E4IDggMCAwIDAgMjQgMTVaIiBmaWxsPSIjZmZmZmZmIiBjbGFzcz0iZmlsbC0wMDAwMDAiPjwvcGF0aD48L3N2Zz4="></image>
 
             
             </button>
+          </view>
         </view>
         <!-- 添加动态提示 -->
         <view wx:if="{{isRecording}}" class="recording-tip">
@@ -65,7 +75,7 @@
 
       </view>
       <!-- 添加音频播放器 -->
-      <view wx:if="{{formData.voiceNote!=''}}" class="audio-player">
+      <view wx:if="{{formData.voiceNote!= 'undefined'&&formData.voiceNote!= 'null'}}" class="audio-player">
         <audio name="{{formData.name}}" author="" src="{{formData.voiceNote}}"  controls></audio>
       </view>
     </view>

@@ -37,15 +37,19 @@
 }
 
 .label {
-  display: block;
   font-size: 28rpx;
   color: #666;
-  margin-bottom: 10rpx;
-  width: 120rpx;
+  width: 160rpx;
+  flex-shrink: 0;
+}
+
+.input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .hint {
-  display: block;
   font-size: 24rpx;
   color: #999;
   margin-top: 8rpx;

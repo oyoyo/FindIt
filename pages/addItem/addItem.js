@@ -27,8 +27,6 @@ Page({
       });
     }
 
-    console.log('formData.voiceNote与空子串或操作-前：', options.voiceNote||'');
-
     // Handle edit mode
     if (options.edit === 'true') {
       this.setData({
@@ -37,11 +35,11 @@ Page({
         'formData.name': options.name,
         'formData.category': options.category,
         'formData.location': options.location,
-        'formData.voiceNote': decodeURIComponent(options.voiceNote||''),
+        'formData.voiceNote': decodeURIComponent(options.voiceNote),
         'formData.remarks': decodeURIComponent(options.remarks),
         'formData.reminderDays': options.reminderDays
       });
-      console.log('formData.voiceNote与空子串或操作-后：', this.data.formData.voiceNote||'');
+
       // Set category index
       const categoryIndex = this.data.categories.findIndex(cat => cat === options.category);
       if (categoryIndex !== -1) {
@@ -180,7 +178,6 @@ if (recordTempPath) {
     };
 console.log('itemData.saveTime:', itemData.saveTime);
 console.log('itemData.voiceNote:', itemData.voiceNote);
-
 
     // 如果是编辑模式，删除旧的提醒
     if (this.data.isEdit) {

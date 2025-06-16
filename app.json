@@ -9,7 +9,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "FindIt",
+    "navigationBarTitleText": "我就在这",
     "navigationBarTextStyle": "black"
   },
   "style": "v2",
@@ -19,7 +19,7 @@
       "desc": "用于添加物品到期提醒到系统日历"
     },
     "scope.userLocation":{
-      "desc":"你的位置信息将用酒店和门店定位"
+      "desc":"你的位置信息将用于保存地点定位"
     },
       "scope.userAddPhoneCalendar":{
       "desc":"你的日历信息将用于添加日程提醒"

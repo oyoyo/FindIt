@@ -78,4 +78,15 @@
 .delete-btn {
   background-color: #ff4444;
   color: #fff;
-} 
+}
+
+
+/* 让音频播放器容器宽度充满父元素 */
+.audio-player {
+  width: 100%;
+}
+
+/* 让音频播放器元素宽度充满容器 */
+.audio-player audio {
+  width: 100%;
+}

@@ -39,14 +39,14 @@
 .label {
   font-size: 28rpx;
   color: #666;
-  width: 160rpx;
+  width: 140rpx;
   flex-shrink: 0;
 }
 
 .input-group {
   flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction1: column;
 }
 
 .hint {

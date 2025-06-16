@@ -16,6 +16,7 @@ Page({
   },
 
   onLoad(options) {
+    
     // Load categories from storage
     const categories = wx.getStorageSync('categories') || ['电子产品', '书籍/音像', '衣物/饰品', '食品/医药', '文体/工具', '其他'];
     this.setData({ categories });
@@ -26,6 +27,8 @@ Page({
       });
     }
 
+    console.log('formData.voiceNote与空子串或操作-前：', options.voiceNote||'');
+
     // Handle edit mode
     if (options.edit === 'true') {
       this.setData({
@@ -34,11 +37,11 @@ Page({
         'formData.name': options.name,
         'formData.category': options.category,
         'formData.location': options.location,
-        'formData.voiceNote': decodeURIComponent(options.voiceNote),
+        'formData.voiceNote': decodeURIComponent(options.voiceNote||''),
         'formData.remarks': decodeURIComponent(options.remarks),
         'formData.reminderDays': options.reminderDays
       });
-
+      console.log('formData.voiceNote与空子串或操作-后：', this.data.formData.voiceNote||'');
       // Set category index
       const categoryIndex = this.data.categories.findIndex(cat => cat === options.category);
       if (categoryIndex !== -1) {
@@ -129,7 +132,7 @@ Page({
     }
 
    
-// 假设录音文件的临时路径存储在 this.data.recordTempPath 中
+// 录音文件的临时路径存储在 this.data.voiceNote 中
 const recordTempPath = this.data.formData.voiceNote;
 if (recordTempPath) {
     try {
@@ -177,6 +180,7 @@ if (recordTempPath) {
     };
 console.log('itemData.saveTime:', itemData.saveTime);
 console.log('itemData.voiceNote:', itemData.voiceNote);
+
 
     // 如果是编辑模式，删除旧的提醒
     if (this.data.isEdit) {
@@ -317,31 +321,28 @@ console.log('itemData.voiceNote:', itemData.voiceNote);
    * @description 开始录音
    */
   startRecord() {
-    this.recorderManager = wx.getRecorderManager();
-    this.recorderManager.start({
-      format: 'mp3'
-    });
-    this.recorderManager.onStart(() => {
-      console.log('开始录音');
-    });
-    this.recorderManager.onError((res) => {
-      console.error('录音出错:', res);
-    });
+    this.setData({ isRecording: true });
+    // 原有的录音启动逻辑
+    const recorderManager = wx.getRecorderManager();
+    recorderManager.start({ format: 'mp3' });
+    this.recorderManager = recorderManager;
   },
+
   /**
-   * @description 停止录音
+   * 停止录音方法
+   * 此方法会在用户松开录音按钮或取消操作时触发，设置 isRecording 为 false 以隐藏提示，并停止录音功能
    */
   stopRecord() {
-    if (this.recorderManager) {
-      this.recorderManager.stop();
-      this.recorderManager.onStop((res) => {
-        console.log('停止录音', res.tempFilePath);
-        // 可以将录音文件路径保存到表单数据中
+    this.setData({ isRecording: false });
+    // 原有的录音停止逻辑
+    this.recorderManager.stop();
+    this.recorderManager.onStop((res) => {
+      if (res.tempFilePath) {
         this.setData({
           'formData.voiceNote': res.tempFilePath
         });
-      });
-    }
+      }
+    });
   },
   // ... existing code ...
 

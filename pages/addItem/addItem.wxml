@@ -33,12 +33,39 @@
         <text class="label">备注</text>
         <view class="remarks-container">
           <textarea name="remarks" placeholder="添加备注信息" value="{{formData.remarks}}"></textarea>
-          <button class="record-btn" bindtouchstart="startRecord" bindtouchend="stopRecord" bindtouchcancel="stopRecord">按住录音</button>
+          <button class="record-btn" bindtouchstart="startRecord" bindtouchend="stopRecord" bindtouchcancel="stopRecord">
+            
+<image style="width:96rpx;height:96rpx;" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMzIgMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE2IDIwYTUgNSAwIDAgMCA1LTVWOWE1IDUgMCAwIDAtMTAgMHY2YTUgNSAwIDAgMCA1IDVaIiBmaWxsPSIjZmZmZmZmIiBjbGFzcz0iZmlsbC0wMDAwMDAiPjwvcGF0aD48cGF0aCBkPSJNMjQgMTVhMSAxIDAgMCAwLTIgMCA2IDYgMCAwIDEtMTIgMCAxIDEgMCAwIDAtMiAwIDggOCAwIDAgMCA3IDcuOTNWMjZoLTMuNWExIDEgMCAwIDAgMCAyaDlhMSAxIDAgMCAwIDAtMkgxN3YtMy4wN0E4IDggMCAwIDAgMjQgMTVaIiBmaWxsPSIjZmZmZmZmIiBjbGFzcz0iZmlsbC0wMDAwMDAiPjwvcGF0aD48L3N2Zz4="></image>
+
+            
+            </button>
+        </view>
+        <!-- 添加动态提示 -->
+        <view wx:if="{{isRecording}}" class="recording-tip">
+          <div class="sound-wave-container" >
+      <!--   <div class="recording-indicator">
+            <div class="recording-dot"></div>
+            <span>录音中...</span>
+        </div>-->
+        <div class="sound-wave" style="height: 50px; width: 100px;">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+          <text></text>
         </view>
 
       </view>
       <!-- 添加音频播放器 -->
-      <view wx:if="{{formData.voiceNote!= 'undefined'}}" class="audio-player">
+      <view wx:if="{{formData.voiceNote!=''}}" class="audio-player">
         <audio name="{{formData.name}}" author="" src="{{formData.voiceNote}}"  controls></audio>
       </view>
     </view>

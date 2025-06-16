@@ -23,10 +23,12 @@ Page({
 
     if (options.imagePath) {
       this.setData({
-        tempImagePath: options.imagePath
+        tempImagePath: options.imagePath,
+        voiceNote: decodeURIComponent(options.voiceNote||'')
       });
     }
-
+    console.log('options.voiceNote与空子串或操作-前：', options.voiceNote);
+    console.log('options.voiceNote与空子串或操作-后：', decodeURIComponent(options.voiceNote||''));
     // Handle edit mode
     if (options.edit === 'true') {
       this.setData({
@@ -35,8 +37,8 @@ Page({
         'formData.name': options.name,
         'formData.category': options.category,
         'formData.location': options.location,
-        'formData.voiceNote': decodeURIComponent(options.voiceNote),
-        'formData.remarks': decodeURIComponent(options.remarks),
+        'formData.voiceNote': decodeURIComponent(options.voiceNote||''),
+        'formData.remarks': decodeURIComponent(options.remarks||''),
         'formData.reminderDays': options.reminderDays
       });
 
@@ -132,7 +134,9 @@ Page({
    
 // 录音文件的临时路径存储在 this.data.voiceNote 中
 const recordTempPath = this.data.formData.voiceNote;
-if (recordTempPath) {
+if ((recordTempPath)&&(recordTempPath!=this.data.voiceNote)) {
+  this.data.voiceNote = recordTempPath;
+  console.log('尝试保存录音:', recordTempPath);
     try {
         // 保存录音文件到永久路径
         const { savedFilePath } = await wx.saveFile({
@@ -140,6 +144,7 @@ if (recordTempPath) {
         });
         formData.recordPath = savedFilePath;
         formData.voiceNote = savedFilePath;
+        this.data.voiceNote = savedFilePath;
         console.log('录音文件保存成功，永久路径:', savedFilePath);
     } catch (error) {
         console.error('录音文件保存失败:', error);
@@ -169,7 +174,7 @@ if (recordTempPath) {
       location: formData.location,
       remarks: formData.remarks,
       imageUrl: this.data.tempImagePath,
-      voiceNote: formData.voiceNote? formData.voiceNote : null,      
+      voiceNote: this.data.voiceNote? this.data.voiceNote : null,      
       saveTime: new Date().toLocaleString(),
       timestamp: this.data.isEdit ? now : now,
       reminderDays: reminderDays,

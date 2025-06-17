@@ -25,6 +25,7 @@ Page({
     const item = items.find(item => item.id === id);
     if (item) {
       item.saveTime = util.formatDate(item.timestamp);
+      item.daysLeft = item.reminderDays ? Math.ceil((item.reminderEndDate - Date.now()) / (24 * 60 * 60 * 1000)) : null;
       this.setData({ item });
     } else {
       wx.showToast({

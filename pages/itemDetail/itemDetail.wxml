@@ -28,6 +28,7 @@
       <view class="info-item">
         <text class="label">提醒天数</text>
         <text class="value">{{item.reminderDays}}</text>
+        <text class=" {{item.daysLeft>0 ? 'green' : 'red'}}">{{item.reminderDays==0? '': (item.daysLeft>0 ? '剩余'+item.daysLeft+'天': '超期'+-item.daysLeft+'天')}}</text>
       </view>
 
        <view class="info-item remarks">

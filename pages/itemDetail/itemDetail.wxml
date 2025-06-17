@@ -39,8 +39,11 @@
         <button wx:if="{{item.voiceNote}}" bindtap="playRecord">播放录音</button>
         <text wx:else>无录音文件</text>
       </view>
-      <view wx:if="{{item.voiceNote}}" class="audio-player">
-          <audio name="{{item.name}}" author="" src="{{item.voiceNote}}" controls></audio>
+      <view wx:if="{{item.voiceNote}}" class="audio-player-container">
+          <audio name="{{item.name}}" author="" src="{{item.voiceNote}}" controls class="audio-player"></audio>
+          <button class="delete-audio-btn" bindtap="deleteVoiceNote">
+              x
+          </button>
       </view>
 
     </view>

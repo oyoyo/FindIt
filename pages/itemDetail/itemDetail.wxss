@@ -90,3 +90,43 @@
 .audio-player audio {
   width: 100%;
 }
+
+.audio-player-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  margin-top: 20rpx;
+  padding-right: 40rpx;
+}
+
+.delete-audio-btn {
+  position: absolute;
+  top: -10rpx;
+  right: -10rpx;
+  width: 40rpx !important;
+  height: 40rpx !important;
+  min-height: 40rpx !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: red !important;
+  border: none !important;
+  color: #fff;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 2;
+}
+
+.delete-audio-btn image {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.delete-audio-btn::after {
+  border: none !important;
+}
+
+.audio-player {
+  flex-grow: 1;
+}

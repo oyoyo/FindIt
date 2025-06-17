@@ -111,5 +111,35 @@ Page({
         }
       }
     });
+  },
+
+  /**
+   * 删除录音文件
+   */
+  deleteVoiceNote() {
+    wx.showModal({
+      title: '确认删除',
+      content: '确定要删除这个录音吗？',
+      success: (res) => {
+        if (res.confirm) {
+          const item = this.data.item;
+          // Clear voice note data
+          item.voiceNote = null;
+          item.recordPath = null;
+
+          // Update in storage
+          const items = wx.getStorageSync('items') || [];
+          const newItems = items.map(i => i.id === item.id ? item : i);
+          wx.setStorageSync('items', newItems);
+
+          this.setData({ item });
+
+          wx.showToast({
+            title: '录音已删除',
+            icon: 'success'
+          });
+        }
+      }
+    });
   }
 });

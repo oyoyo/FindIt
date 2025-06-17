@@ -35,7 +35,7 @@
 
 .list-header {
   display: grid;
-  grid-template-columns: 120rpx 10fr 10fr 5fr 180rpx;
+  grid-template-columns: 120rpx 10fr 10fr 4fr 180rpx 2fr;
   padding: 20rpx;
   background-color: #fff;
   border-bottom: 1rpx solid #eee;
@@ -58,7 +58,7 @@
 
 .list-item {
   display: grid;
-  grid-template-columns: 120rpx 10fr 10fr 5fr 180rpx;
+  grid-template-columns: 120rpx 10fr 10fr 4fr 180rpx 3fr;
   padding: 15rpx;
   border-bottom: 1rpx solid #eee;
   align-items: center;
@@ -108,7 +108,7 @@
  .item-reminderDays {
   font-size: 28rpx;
   color: #333;
-  text-align: left;
+  text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -199,4 +199,51 @@
 .settings-icon {
   width: 48rpx;
   height: 48rpx;
-} 
+}
+.movable-area {
+  width: 100%;
+}
+
+.movable-view {
+  width: 100%;
+  transition: all 0.3s;
+}
+
+.slide-buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+}
+
+.edit-btn, .delete-btn {
+  width: 80rpx;
+  height: 100%;
+  color: white;
+  font-size: 28rpx;
+  border-radius: 0;
+}
+
+.edit-btn {
+  background-color: #2196F3;
+}
+
+.delete-btn {
+  background-color: #ff4444;
+}
+
+.audio-btn {
+  width: 40rpx !important;
+  height: 40rpx !important;
+  min-height: 40rpx !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: none !important;
+  display: inline-block !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.audio-btn::after {
+  border: none !important;
+}

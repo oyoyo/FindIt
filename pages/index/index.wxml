@@ -1,7 +1,7 @@
 <view class="container">
   <view class="title-container">
     <text class="title">我的东西 ({{items.length}})</text>
-    <text class="note red " style="color: rgb(221, 103, 82);">注意：不要删除或移动相册里的照片，否则列表图片会消失</text>   
+    <text class="note red " style="color: rgb(221, 103, 82);">注意：不要删除或移动相册里的照片，否则图片会消失。</text>   
     <view class="settings-btn" bindtap="goToSettings">
       <image class="settings-icon" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMzIgMzIiIGlkPSJHbHlwaCIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0yNy41MjYsMTguMDM2TDI3LDE3LjczMmMtMC42MjYtMC4zNjEtMS0xLjAwOS0xLTEuNzMyczAuMzc0LTEuMzcxLDEtMS43MzJsMC41MjYtMC4zMDQgIGMxLjQzNi0wLjgzLDEuOTI3LTIuNjYyLDEuMDk4LTQuMDk4bC0xLTEuNzMyYy0wLjgyNy0xLjQzMy0yLjY2Ni0xLjkyNS00LjA5OC0xLjA5OEwyMyw3LjMzOWMtMC42MjYsMC4zNjItMS4zNzUsMC4zNjItMiwwICBjLTAuNjI2LTAuMzYyLTEtMS4wMDktMS0xLjczMlY1YzAtMS42NTQtMS4zNDYtMy0zLTNoLTJjLTEuNjU0LDAtMywxLjM0Ni0zLDN2MC42MDhjMCwwLjcyMy0wLjM3NCwxLjM3LTEsMS43MzIgIGMtMC42MjYsMC4zNjEtMS4zNzQsMC4zNjItMiwwTDguNDc0LDcuMDM2QzcuMDQyLDYuMjA5LDUuMjAzLDYuNzAxLDQuMzc1LDguMTM0bC0xLDEuNzMyYy0wLjgyOSwxLjQzNi0wLjMzOCwzLjI2OSwxLjA5OCw0LjA5OCAgTDUsMTQuMjY4QzUuNjI2LDE0LjYyOSw2LDE1LjI3Nyw2LDE2cy0wLjM3NCwxLjM3MS0xLDEuNzMybC0wLjUyNiwwLjMwNGMtMS40MzYsMC44MjktMS45MjcsMi42NjItMS4wOTgsNC4wOThsMSwxLjczMiAgYzAuODI4LDEuNDMzLDIuNjY3LDEuOTI1LDQuMDk4LDEuMDk4TDksMjQuNjYxYzAuNjI2LTAuMzYzLDEuMzc0LTAuMzYxLDIsMGMwLjYyNiwwLjM2MiwxLDEuMDA5LDEsMS43MzJWMjdjMCwxLjY1NCwxLjM0NiwzLDMsM2gyICBjMS42NTQsMCwzLTEuMzQ2LDMtM3YtMC42MDhjMC0wLjcyMywwLjM3NC0xLjM3LDEtMS43MzJjMC42MjUtMC4zNjEsMS4zNzQtMC4zNjIsMiwwbDAuNTI2LDAuMzA0ICBjMS40MzIsMC44MjYsMy4yNzEsMC4zMzQsNC4wOTgtMS4wOThsMS0xLjczMkMyOS40NTMsMjAuNjk4LDI4Ljk2MiwxOC44NjUsMjcuNTI2LDE4LjAzNnogTTE2LDIxYy0yLjc1NywwLTUtMi4yNDMtNS01czIuMjQzLTUsNS01ICBzNSwyLjI0Myw1LDVTMTguNzU3LDIxLDE2LDIxeiIgaWQ9IlhNTElEXzI3M18iLz48L3N2Zz4="></image>
     </view>
@@ -24,14 +24,14 @@
             <image class="item-image" src="{{item.imageUrl}}" mode="aspectFill"></image>
           </view>
           <view class="item-content" bindtap="showItemDetail" data-id="{{item.id}}">
-            <text class="item-name">{{item.name}}</text>
+            <text class="item-name">{{item.name}}</text>            
             <text class="item-location">{{item.location}}</text>
-            <text class="item-reminderDays {{item.daysLeft>0 ? 'green' : 'red'}}">
-            {{item.daysLeft ? item.daysLeft: ''}}
-            
-            </text>
+            <text class="item-reminderDays {{item.daysLeft>0 ? 'green' : 'red'}}">{{item.reminderDays==0? '': (item.daysLeft>0 ? item.daysLeft: -item.daysLeft)}}</text>
             <text class="item-time">{{item.formattedDate}}</text>
           </view>
+            <button wx:if="{{item.voiceNote}}" class="audio-btn" bindtap="playRecord" data-voice-note="{{item.voiceNote}}">
+              <image wx:if="{{!isPlayingVoice}}" style="width:40rpx;height:40rpx;" src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE1IDQuMjV2MTUuNDk2YzAgMS4wNzgtMS4yNzQgMS42NS0yLjA4LjkzNGwtNC40OTItMy45OTRhLjc1Ljc1IDAgMCAwLS40OTgtLjE5SDQuMjVBMi4yNSAyLjI1IDAgMCAxIDIgMTQuMjQ3VjkuNzVhMi4yNSAyLjI1IDAgMCAxIDIuMjUtMi4yNWgzLjY4YS43NS43NSAwIDAgMCAuNDk4LS4xOWw0LjQ5MS0zLjk5M0MxMy43MjYgMi41OTkgMTUgMy4xNyAxNSA0LjI1Wm0zLjk5MiAxLjY0N2EuNzUuNzUgMCAwIDEgMS4wNDkuMTU3QTkuOTU5IDkuOTU5IDAgMCAxIDIyIDEyYTkuOTYgOS45NiAwIDAgMS0xLjk2IDUuOTQ2Ljc1Ljc1IDAgMCAxLTEuMjA1LS44OTJBOC40NTkgOC40NTkgMCAwIDAgMjAuNSAxMmE4LjQ1OSA4LjQ1OSAwIDAgMC0xLjY2NS01LjA1NC43NS43NSAwIDAgMSAuMTU3LTEuMDQ5Wk0xNy4xNDMgOC4zN2EuNzUuNzUgMCAwIDEgMS4wMTcuMzAzYy41MzYuOTkuODQgMi4xMjUuODQgMy4zMjhhNi45NzMgNi45NzMgMCAwIDEtLjg0IDMuMzI4Ljc1Ljc1IDAgMCAxLTEuMzItLjcxNGMuNDItLjc3Ny42Ni0xLjY2Ni42Ni0yLjYxNHMtLjI0LTEuODM3LS42Ni0yLjYxNGEuNzUuNzUgMCAwIDEgLjMwMy0xLjAxN1oiIGZpbGw9IiMxNDg3Y2YiIGNsYXNzPSJmaWxsLTIxMjEyMSI+PC9wYXRoPjwvc3ZnPg==" />
+            </button>
         </view>
       </view>
     </scroll-view>

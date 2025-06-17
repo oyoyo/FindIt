@@ -75,7 +75,7 @@
 
       </view>
       <!-- 添加音频播放器 -->
-      <view wx:if="{{formData.voiceNote!= 'undefined'&&formData.voiceNote!= 'null'}}" class="audio-player">
+      <view wx:if="{{formData.voiceNote!= ''}}" class="audio-player">
         <audio name="{{formData.name}}" author="" src="{{formData.voiceNote}}"  controls></audio>
       </view>
     </view>

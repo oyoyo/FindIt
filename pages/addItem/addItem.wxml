@@ -75,8 +75,22 @@
 
       </view>
       <!-- 添加音频播放器 -->
-      <view wx:if="{{formData.voiceNote!= ''}}" class="audio-player">
-        <audio name="{{formData.name}}" author="" src="{{formData.voiceNote}}"  controls></audio>
+      <view wx:if="{{formData.voiceNote && formData.voiceNote !== 'null'}}" class="audio-player-container">
+
+        <view class="form-item">
+        <text class="label">语音备注</text>
+        <view class="audio-controls">
+          <button bindtap="playVoiceNote" class="play-button">
+            <image wx:if="{{!isPlayingVoice}}" style="width:60rpx;height:60rpx;" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTggNXYxNGwxMS03eiIgZmlsbD0iIzAwNzljYyI+PC9wYXRoPjwvc3ZnPg==" />
+            <image wx:else style="width:60rpx;height:60rpx;" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMDAgMTAwIj48cGF0aCBkPSJNNDQuMiA3OC4zSDMyLjFjLTEuMSAwLTItLjktMi0yVjIzLjdjMC0xLjEuOS0yIDItMmgxMi4xYzEuMSAwIDIgLjkgMiAydjUyLjVjMCAxLjItLjkgMi4xLTIgMi4xek02Ny45IDc4LjNINTUuOGMtMS4xIDAtMi0uOS0yLTJWMjMuN2MwLTEuMS45LTIgMi0yaDEyLjFjMS4xIDAgMiAuOSAyIDJ2NTIuNWMwIDEuMi0uOSAyLjEtMiAyLjF6IiBmaWxsPSIjMjE5NmYzIiBjbGFzcz0iZmlsbC0wMDAwMDAiPjwvcGF0aD48L3N2Zz4=" />
+          </button>
+          <button bindtap="deleteVoiceNote" class="delete-audio-button">
+              X
+          </button>
+        <text class="audio-duration" style="display: none;">时长: {{audioDuration}}s</text>
+        </view>
+      </view>
+
       </view>
     </view>
     

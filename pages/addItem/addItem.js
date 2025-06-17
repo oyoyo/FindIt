@@ -12,10 +12,44 @@ Page({
       remarks: '',
       reminderDays: '',
       voiceNote: ''
-    }
+    },
+    isRecording: false,
+    isPlayingVoice: false,
+    audioDuration: 0,
+    tempDuration: 0
   },
+  innerAudioContext: null,
 
   onLoad(options) {
+    // Initialize InnerAudioContext
+    this.innerAudioContext = wx.createInnerAudioContext();
+    this.innerAudioContext.onPlay(() => {
+      console.log('开始播放');
+      this.setData({ isPlayingVoice: true });
+    });
+    this.innerAudioContext.onPause(() => {
+      console.log('暂停播放');
+      this.setData({ isPlayingVoice: false });
+    });
+    this.innerAudioContext.onStop(() => {
+      console.log('停止播放');
+      this.setData({ isPlayingVoice: false });
+    });
+    this.innerAudioContext.onEnded(() => {
+      console.log('播放结束');
+      this.setData({ isPlayingVoice: false });
+    });
+    this.innerAudioContext.onTimeUpdate(() => {
+      this.setData({ audioDuration: Math.floor(this.innerAudioContext.duration) });
+    });
+    this.innerAudioContext.onError((res) => {
+      console.error('播放失败', res.errMsg);
+      wx.showToast({
+        title: '播放失败', 
+        icon: 'none'
+      });
+      this.setData({ isPlayingVoice: false });
+    });
     
     // Load categories from storage
     const categories = wx.getStorageSync('categories') || ['电子产品', '书籍/音像', '衣物/饰品', '食品/医药', '文体/工具', '其他'];
@@ -31,13 +65,14 @@ Page({
     console.log('options.voiceNote与空子串或操作-后：', decodeURIComponent(options.voiceNote||''));
     // Handle edit mode
     if (options.edit === 'true') {
+      const decodedVoiceNote = decodeURIComponent(options.voiceNote||'');
       this.setData({
         isEdit: true,
         itemId: options.id,
         'formData.name': options.name,
         'formData.category': options.category,
         'formData.location': options.location,
-        'formData.voiceNote': decodeURIComponent(options.voiceNote||''),
+        'formData.voiceNote': decodedVoiceNote,
         'formData.remarks': decodeURIComponent(options.remarks||''),
         'formData.reminderDays': options.reminderDays
       });
@@ -46,6 +81,27 @@ Page({
       const categoryIndex = this.data.categories.findIndex(cat => cat === options.category);
       if (categoryIndex !== -1) {
         this.setData({ categoryIndex });
+      }
+      // Set audio source if voice note exists
+      if (decodedVoiceNote && decodedVoiceNote !== 'null') {
+        this.innerAudioContext.src = decodedVoiceNote;
+      }
+    }
+  },
+
+  onUnload() {
+    if (this.innerAudioContext) {
+      this.innerAudioContext.destroy();
+      this.innerAudioContext = null;
+    }
+  },
+
+  playVoiceNote() {
+    if (this.data.formData.voiceNote) {
+      if (this.data.isPlayingVoice) {
+        this.innerAudioContext.pause();
+      } else {
+        this.innerAudioContext.play();
       }
     }
   },
@@ -146,6 +202,10 @@ if ((recordTempPath)&&(recordTempPath!=this.data.voiceNote)) {
         formData.voiceNote = savedFilePath;
         this.data.voiceNote = savedFilePath;
         console.log('录音文件保存成功，永久路径:', savedFilePath);
+        // Update innerAudioContext source after saving file
+        if (this.innerAudioContext) {
+          this.innerAudioContext.src = savedFilePath;
+        }
     } catch (error) {
         console.error('录音文件保存失败:', error);
         wx.showToast({
@@ -343,9 +403,44 @@ console.log('itemData.voiceNote:', itemData.voiceNote);
         this.setData({
           'formData.voiceNote': res.tempFilePath
         });
+        // Set innerAudioContext source after recording
+        if (this.innerAudioContext) {
+          this.innerAudioContext.src = res.tempFilePath;
+          console.log("临时文件已保存：",res.tempFilePath);
+          //this.setData({ tempDuration: Math.floor(this.innerAudioContext.duration) });
+        }
       }
     });
   },
-  // ... existing code ...
+
+  /**
+   * 删除录音文件
+   */
+  deleteVoiceNote() {
+    wx.showModal({
+      title: '确认删除',
+      content: '确定要删除此录音吗？',
+      success: (res) => {
+        if (res.confirm) {
+          // Clear voice note data
+          this.setData({
+            'formData.voiceNote': null,
+            audioDuration: 0,
+            isPlayingVoice: false
+          });
+          // If there's an active audio context, stop and destroy it
+          if (this.innerAudioContext) {
+            this.innerAudioContext.stop();
+            //this.innerAudioContext.destroy();
+            //this.innerAudioContext = null;
+          }
+          wx.showToast({
+            title: '录音已删除',
+            icon: 'success'
+          });
+        }
+      }
+    });
+  },
 
 })

@@ -133,10 +133,6 @@ textarea {
   white-space: nowrap;
 }
 
-.audio-player {
-  margin-top: 20rpx;
-  width: 100%;
-}
 
 .recording-tip {
   position: fixed;
@@ -148,6 +144,49 @@ textarea {
   padding: 20rpx 40rpx;
   border-radius: 10rpx;
   z-index: 999;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.play-button,
+.delete-audio-button {
+  width: 80rpx !important;
+  height: 80rpx !important;
+  min-height: 80rpx !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: #e7e7e7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.2);
+}
+
+.play-button image,
+.delete-audio-button image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.delete-audio-button {
+  color:#ff4d4d;
+  background-color1: #d7d7d7;
+}
+
+.audio-player {
+  flex-grow: 1;
+  margin-right: 20rpx; /* Add some space between player and controls */
+}
+
+.audio-duration {
+  font-size: 28rpx;
+  color: #666;
 }
 
 .sound-wave {

@@ -16,7 +16,9 @@ Page({
     isRecording: false,
     isPlayingVoice: false,
     audioDuration: 0,
-    tempDuration: 0
+    tempDuration: 0,
+    locationList: [],
+    locationIndex: 0
   },
   innerAudioContext: null,
 
@@ -85,6 +87,23 @@ Page({
       // Set audio source if voice note exists
       if (decodedVoiceNote && decodedVoiceNote !== 'null') {
         this.innerAudioContext.src = decodedVoiceNote;
+      }
+    }
+
+    // 加载历史位置
+    const items = wx.getStorageSync('items') || [];
+    const locationSet = new Set();
+    items.forEach(item => {
+      if (item.location) locationSet.add(item.location);
+    });
+    const locationList = Array.from(locationSet);
+    this.setData({ locationList });
+
+    // 如果是编辑模式，设置locationIndex
+    if (options.edit === 'true') {
+      const locIdx = locationList.indexOf(options.location);
+      if (locIdx !== -1) {
+        this.setData({ locationIndex: locIdx });
       }
     }
   },
@@ -458,6 +477,20 @@ console.log('itemData.voiceNote:', itemData.voiceNote);
           });
         }
       }
+    });
+  },
+
+  onLocationPickerChange(e) {
+    const idx = e.detail.value;
+    this.setData({
+      locationIndex: idx,
+      'formData.location': this.data.locationList[idx]
+    });
+  },
+  onLocationInput(e) {
+    this.setData({
+      'formData.location': e.detail.value,
+      locationIndex: -1 // 输入新内容时取消选中
     });
   },
 

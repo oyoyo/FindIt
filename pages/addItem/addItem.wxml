@@ -2,6 +2,9 @@
   <view class="preview-image">
     <image src="{{tempImagePath}}" mode="aspectFit"></image>
   </view>
+  <button class="choose-image-btn" bindtap="chooseImage">
+    {{tempImagePath ? '更换图片' : '添加图片'}}
+  </button>
   
   <form bindsubmit="saveItem">
     <view class="form-group">

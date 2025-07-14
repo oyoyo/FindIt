@@ -378,6 +378,24 @@ console.log('itemData.voiceNote:', itemData.voiceNote);
     wx.navigateBack();
   },
 
+  chooseImage() {
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
+        const tempFilePath = res.tempFiles[0].tempFilePath;
+        this.setData({ tempImagePath: tempFilePath });
+      },
+      fail: (err) => {
+        wx.showToast({
+          title: '未选择图片',
+          icon: 'none'
+        });
+      }
+    });
+  },
+
 
   /**
    * @description 开始录音
